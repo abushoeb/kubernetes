@@ -18,6 +18,26 @@ $ kubectl delete -f  .
 #### How to check Heapster is running
 Text will go here
 
+##### Access [Heapster Metric Model] (https://github.com/kubernetes/heapster/blob/master/docs/model.md)
+Full documentation of Heapster Metric Model are avaibale [here] (https://github.com/kubernetes/heapster/blob/master/docs/model.md). It can be accessed via web browser by accessing http://heapster-pod-ip:heapster-service-port/api/v1/model/metrics/. Same result can be seen by executing following command.
+
+```
+$ curl -L http://heapster-pod-ip:heapster-service-port/api/v1/model/metrics/
+```
+
+##### Check influxdb
+[Install Influxdb Client] (https://docs.influxdata.com/influxdb/v1.2/introduction/installation/) on the machine to get connected to infuxdb database 
+
+```
+$ influx -host <cluster-ip> -port <influxdb-service-port>
+```
+
+Sample influxdb queries
+- show databases
+- use db-name
+- show measurements
+- select value from "cpu/node_capacity"
+
 #### Reference and Help
 - https://github.com/kubernetes/heapster/blob/master/docs/influxdb.md
 - https://github.com/kubernetes/heapster/blob/master/docs/debugging.md
