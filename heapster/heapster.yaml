@@ -1,0 +1,69 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: heapster
+  namespace: kube-system
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: heapster
+  namespace: kube-system
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        task: monitoring
+        k8s-app: heapster
+    spec:
+      serviceAccountName: heapster
+      containers:
+      - name: heapster
+        image: gcr.io/google_containers/heapster-amd64:v1.3.0
+        imagePullPolicy: IfNotPresent
+        command:
+        - /heapster
+        - --source=kubernetes:https://kubernetes.service.consul:6443?inClusterConfig=true
+        - --sink=influxdb:http://monitoring-influxdb.kube-system:8086
+        - --authentication-kubeconfig=/etc/kubernetes/kubeconfig.yml
+        - --v=0
+        volumeMounts:
+        - mountPath: /etc/kubernetes
+          name: etc-kubernetes
+          readOnly: true
+        - mountPath: /etc/pki/CA
+          name: ca-path
+          readOnly: true
+        - mountPath: /etc/pki/mantl
+          name: cert-path
+          readOnly: true
+      volumes:
+      - name: etc-kubernetes
+        hostPath:
+          path: /etc/kubernetes
+      - name: ca-path
+        hostPath:
+          path: /etc/pki/CA
+      - name: cert-path
+        hostPath:
+          path: /etc/pki/mantl
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    task: monitoring
+    # For use as a Cluster add-on (https://github.com/kubernetes/kubernetes/tree/master/cluster/addons)
+    # If you are NOT using this as an addon, you should comment out this line.
+    kubernetes.io/cluster-service: 'true'
+    kubernetes.io/name: Heapster
+  name: heapster
+  namespace: kube-system
+spec:
+  type: NodePort
+  ports:
+  - port: 80
+    targetPort: 8082
+  selector:
+    k8s-app: heapster
