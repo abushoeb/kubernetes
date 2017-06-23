@@ -1,7 +1,6 @@
 ## How to install Kubernetes
 
-https://kubernetes.io/docs/getting-started-guides/minikube/
-https://github.com/kubernetes/minikube/releases
+
 
 ### You need to install 3 components
 - Virtualbox https://tecadmin.net/install-oracle-virtualbox-on-ubuntu/
@@ -32,4 +31,13 @@ chmod +x minikube
 sudo mv minikube /usr/local/bin/
 ```
 
+#### Minikube Commands
+```
+minikube start
+minikube stop
 
+```
+
+###### Reference
+- https://kubernetes.io/docs/getting-started-guides/minikube/
+- https://github.com/kubernetes/minikube/releases
