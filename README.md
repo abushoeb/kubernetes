@@ -33,9 +33,9 @@ sudo mv minikube /usr/local/bin/
 
 #### Minikube Commands
 ```
-minikube start
-minikube stop
-
+start k8 cluster $ minikube start
+access k8 dashboard $ minikube dashboard
+stop minikube $ minikube stop
 ```
 
 ###### Reference
