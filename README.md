@@ -34,6 +34,9 @@ sudo mv minikube /usr/local/bin/
 #### Minikube Commands
 ```
 start k8 cluster $ minikube start
+start specific version of k8 $ minikube start --kubernetes-version="v1.5.2"
+see all k8 versions $ minikube get-k8s-versions
+$ minikube status
 access k8 dashboard $ minikube dashboard
 stop minikube $ minikube stop
 ```
@@ -41,3 +44,4 @@ stop minikube $ minikube stop
 ###### Reference
 - https://kubernetes.io/docs/getting-started-guides/minikube/
 - https://github.com/kubernetes/minikube/releases
+- https://rominirani.com/tutorial-getting-started-with-kubernetes-on-your-windows-laptop-with-minikube-3269b54a226
