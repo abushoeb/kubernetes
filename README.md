@@ -34,7 +34,9 @@ sudo mv minikube /usr/local/bin/
 #### Minikube Commands
 ```
 start k8 cluster $ minikube start
-start specific version of k8 $ minikube start --kubernetes-version="v1.5.2"
+or start specific version of k8 $ minikube start --kubernetes-version="v1.5.2"
+or start with a flag enabled $ minikube start --kubernetes-version="v1.5.3" --extra-config kubelet.EnableCustomMetrics=true
+enable heapster $ minikube addons enable heapster
 see all k8 versions $ minikube get-k8s-versions
 $ minikube status
 access k8 dashboard $ minikube dashboard
